@@ -10,6 +10,4 @@ const { createHistory } = useHistoryListStore();
 
 const createHistoryHandler = () => {};
 </script>
-<style lang=""></style>
-</script>
-<style lang=""></style>
+<style></style>
