@@ -1,14 +1,9 @@
-<template lang="">
-  <div></div>
+<template>
+  <div class="container">hi</div>
 </template>
-<script setup>
-import { useRoute } from 'vue-router';
-import { reactive } from 'vue';
-import { useHistoryStore } from '@/stores/historyList.js';
-
-const router = useRouter();
-const { createHistory } = useHistoryListStore();
-
-const reateHistoryHandler = () => {};
-</script>
-<style></style>
+<script setup></script>
+<style>
+.container {
+  margin-top: 100px;
+}
+</style>

@@ -1,11 +1,7 @@
 <template>
   <div>
-    <h1>Account Book Project!</h1>
+    <RouterView />
   </div>
 </template>
-<script>
-export default {
-  name: 'app',
-};
-</script>
+<script setup></script>
 <style></style>
