@@ -1,15 +1,15 @@
 <template lang="">
   <div></div>
 </template>
-<script>
+<script setup>
 import { useRoute } from 'vue-router';
-import ?? from '@/db.json';
-export default {
-  name: 'editHistory',
-  setup() {
+import { reactive } from 'vue';
+import { useHistoryStore } from '@/stores/historyList.js';
+const router = useRouter();
+const { createHistory } = useHistoryListStore();
 
-    return {};
-  },
-};
+const createHistoryHandler = () => {};
+</script>
+<style lang=""></style>
 </script>
 <style lang=""></style>

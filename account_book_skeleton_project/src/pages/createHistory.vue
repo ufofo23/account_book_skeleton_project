@@ -1,15 +1,14 @@
 <template lang="">
   <div></div>
 </template>
-<script>
+<script setup>
 import { useRoute } from 'vue-router';
-import ?? from '@/db.json';
-export default {
-  name: 'createHistory',
-  setup() {
+import { reactive } from 'vue';
+import { useTodoListStore } from '@/stores/historyList.js';
 
-    return {};
-  },
-};
+const router = useRouter();
+const { createHistory } = useHistoryListStore();
+
+const createHistoryHandler = () => {};
 </script>
 <style lang=""></style>
