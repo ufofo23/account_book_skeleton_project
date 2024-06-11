@@ -1,73 +1,34 @@
 <template>
-  <div>
-    <ul>
-      <History
-        v-for="History in HistoryList"
-        :key="History.id"
-        :history="History"
-      />
-    </ul>
-    {{ historyList.category }}
-    &nbsp;
-  </div>
+  <li class="list-group-item">
+    <div><span class="fw-bold">거래처</span> {{ historyList.merchant }}</div>
+    <div><span class="fw-bold">카테고리</span> {{ historyList.category }}</div>
+    <div><span class="fw-bold">금액</span> ₩{{ historyList.amount }}</div>
+    <div><span class="fw-bold">메모:</span> {{ historyList.memo }}</div>
+
+    <span
+      class="float-end badge bg-secondary pointer m-1"
+      @click="router.push(`/transactions/edit/${historyList.id}`)"
+    >
+      수정
+    </span>
+
+    <span
+      class="float-end badge bg-secondary pointer m-1"
+      @click="deleteHistory(historyList.id)"
+    >
+      삭제</span
+    >
+  </li>
 </template>
 
 <script setup>
-import History from "";
+import { useRouter } from "vue-router";
+import { inject } from "vue";
 
-data();
-return {
-  HistoryList: [
-    {
-      id: 1,
-      accountName: "",
-      date: "요일",
-      purchaseMethod: "구매수단",
-      category: "",
-      amount: "",
-      memo: "",
-    },
-    {
-      id: 2,
-      accountName: "",
-      date: "요일",
-      purchaseMethod: "구매수단",
-      category: "",
-      amount: "",
-      memo: "",
-    },
-    {
-      id: 3,
-      accountName: "",
-      date: "요일",
-      purchaseMethod: "구매수단",
-      category: "",
-      amount: "",
-      memo: "",
-    },
-    {
-      id: 4,
-      accountName: "",
-      date: "요일",
-      purchaseMethod: "구매수단",
-      category: "",
-      amount: "",
-      memo: "",
-    },
-    {
-      id: 5,
-      accountName: "",
-      date: "요일",
-      purchaseMethod: "구매수단",
-      category: "",
-      amount: "",
-      memo: "",
-    },
-  ],
-  methods: {
-    on,
-  },
-};
+defineProps({
+  historyList: { Type: Object, required: true },
+});
+
+const router = useRouter();
+const { deleteHistory } = inject("actions");
 </script>
-
-<style lang="scss" scoped></style>
