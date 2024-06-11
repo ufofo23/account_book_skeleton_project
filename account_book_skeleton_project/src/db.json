@@ -1,0 +1,44 @@
+{
+    "member":[
+        {"id": "1",
+        "name": "홍길동",
+        "address": "123@naver.com",
+        "gender": "male",
+        "balance": 
+        }
+    ]
+}
+
+
+{
+    "budget":[
+        {
+            "id": ,
+            "name": ,
+            "amount": ,
+            "date": ,
+            "category": ,
+            "purchaseMethod": ,
+            "isPeriodic": ,
+            "memo": 
+        }
+    ],
+
+    "periodicExpense":[
+        {
+            "id": ,
+            "name": ,
+            "amount": ,
+            "date": ,
+            "category": ,
+            "purchaseMethod": ,
+            "memo": 
+        }
+    ]
+}
+
+{
+    "incomeCategory" : [ "월급", "용돈", "성과금", "환급", "더치페이" ],
+    "expenseCategory" : [ "식비", "교통비", "공과금", "유흥","문화","생황","저축","투자"],
+    "expenseCategory" : [ "현금", "신용카드", "체크카드", "계좌이체"]
+}
