@@ -10,8 +10,8 @@ const router = createRouter({
       name: 'history',
       component: HistoryList,
     },
-    { path: 'history/add', name: 'history/add', component: CreateHistory },
-    { path: 'history/edit/:id', name: 'history/edit', component: EditHistory },
+    { path: 'history/add', name: 'createHistory', component: CreateHistory },
+    { path: 'history/edit/:id', name: 'editHistory', component: EditHistory },
   ],
 });
 
