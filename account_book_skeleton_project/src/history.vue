@@ -1,10 +1,20 @@
 <template>
-  <div class="historyList">
-    <h2>History</h2>
+  <div>
+    <ul>
+      <History
+        v-for="History in HistoryList"
+        :key="History.id"
+        :history="History"
+      />
+    </ul>
+    {{ historyList.category }}
+    &nbsp;
   </div>
 </template>
 
 <script setup>
+import History from "";
+
 data();
 return {
   HistoryList: [
@@ -54,6 +64,9 @@ return {
       memo: "",
     },
   ],
+  methods: {
+    on,
+  },
 };
 </script>
 
