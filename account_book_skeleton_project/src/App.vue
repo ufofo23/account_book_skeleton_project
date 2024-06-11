@@ -1,11 +1,9 @@
 <template>
   <div>
-    <h1>Account Book Project!</h1>
+    <Header />
   </div>
 </template>
-<script>
-export default {
-  name: 'app',
-};
+<script setup>
+import Header from '@/components/Header.vue';
 </script>
 <style></style>
