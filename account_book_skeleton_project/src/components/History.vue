@@ -2,12 +2,12 @@
   <li class="list-group-item">
     <div><span class="fw-bold">거래처</span> {{ historyList.merchant }}</div>
     <div><span class="fw-bold">카테고리</span> {{ historyList.category }}</div>
-    <div><span class="fw-bold">금액</span> ₩{{ historyList.amount }}</div>
-    <div><span class="fw-bold">메모:</span> {{ historyList.memo }}</div>
+    <div><span class="fw-bold">금액</span> {{ historyList.amount }}</div>
+    <div><span class="fw-bold">메모</span> {{ historyList.memo }}</div>
 
     <span
       class="float-end badge bg-secondary pointer m-1"
-      @click="router.push(`/transactions/edit/${historyList.id}`)"
+      @click="router.push(`/History/edit/${historyList.id}`)"
     >
       수정
     </span>
