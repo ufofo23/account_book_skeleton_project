@@ -15,7 +15,7 @@
 import { useRoute } from "vue-router";
 import { reactive } from "vue";
 import { useHistoryStore } from "@/stores/historyList.js";
-import {} from "vue-char.js";
+import {} from "vue-chart.js";
 
 
 const { createHistory } = useHistoryListStore();
