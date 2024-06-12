@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="background">
-      <div class="menu">Account Book</div>
+      <div class="menu">에구머니</div>
       <nav>
         <RouterLink to="#" id="homemenu" class="menu">HOME</RouterLink>
         <RouterLink to="#" id="homemenu" class="menu">거래내역</RouterLink>
@@ -19,6 +19,7 @@
 
 #background {
   position: fixed;
+  z-index: 100;
   top: 0;
   right: 0;
   left: 0;
@@ -41,13 +42,14 @@ nav {
   text-decoration: none;
   color: aliceblue;
   text-align: center;
-  font-size: 40px;
+  font-size: 35px;
   background-color: #ffcf10;
   border-radius: 50%;
   height: 60px;
   width: 60px;
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  z-index: 100;
+  bottom: 25px;
+  right: 25px;
 }
 </style>
