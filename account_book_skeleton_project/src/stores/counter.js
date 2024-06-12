@@ -1,12 +1,151 @@
-import { ref, computed } from 'vue'
-import { defineStore } from 'pinia'
+import { reactive, computed } from 'vue';
+import { defineStore } from 'pinia';
+import axios from 'axios';
 
-export const useCounterStore = defineStore('counter', () => {
-  const count = ref(0)
-  const doubleCount = computed(() => count.value * 2)
-  function increment() {
-    count.value++
-  }
+const BASEURI_MEMBERS = '/api/members';
+const BASEURI_budget = '/api/budget';
+const BASEURI_periodicExpense = '/api/periodicExpense';
 
-  return { count, doubleCount, increment }
-})
+const today = new Date();
+
+const year = today.getFullYear();
+const month = ('0' + (today.getMonth() + 1)).slice(-2);
+const day = ('0' + today.getDate()).slice(-2);
+
+const dateString = year + month + day;
+
+export const useHistoryListStore = defineStore('historyList', () => {
+  /* 반응형 상태 */
+  // 상태 저장 배열
+  const state = reactive({
+    memberList: [],
+    historyList: [],
+    periodicExpenseList: [],
+  });
+
+  // axios로 json에서 members 패치 함수 선언
+  const fetchMemberList = async () => {
+    try {
+      const res = await axios.get(BASEURI_MEMBERS);
+      if (res.status === 200) {
+        state.memberList = res.data;
+      } else {
+        alert('데이터 조회 실패');
+      }
+    } catch (e) {
+      alert(e);
+    }
+  };
+
+  // axios로 json에서 budget 패치 함수 선언
+  const fetchHistoryList = async () => {
+    try {
+      const res = await axios.get(BASEURI_budget);
+      if (res.status === 200) {
+        state.historyList = res.data;
+      } else {
+        alert('데이터 조회 실패');
+      }
+    } catch (e) {
+      alert(e);
+    }
+  };
+
+  // axios로 json에서 periodicExpense 패치 함수 선언
+  const fetchPeriodicList = async () => {
+    try {
+      const res = await axios.get(BASEURI_periodicExpense);
+      if (res.status === 200) {
+        state.periodicExpenseList = res.data;
+      } else {
+        alert('데이터 조회 실패');
+      }
+    } catch (e) {
+      alert(e);
+    }
+  };
+
+  // 패치 함수 실행
+  fetchMemberList();
+  fetchHistoryList();
+  fetchPeriodicList();
+
+  /* 계산된 속성 */
+  // 회원 정보 가져오기
+  const memberList = computed(() => state.memberList);
+
+  // 입출금 내역 가져오기
+  const historyList = computed(() => state.historyList);
+
+  // 정기 지출 목록 가져오기
+  const periodicExpenseList = computed(() => state.periodicExpenseList);
+
+  // 수입 내역 가져오기
+  const historyIncome = computed(() => {
+    return state.historyList.filter((history) => Number(history.amount) >= 0);
+  });
+  // 지출 내역 가져오기
+  const historyExpense = computed(() => {
+    return state.historyList.filter((history) => Number(history.amount) < 0);
+  });
+
+  //카테고리 별 내역 가져오기(금월기준)
+  const getSearchList = (cat) => {
+    return computed(() => {
+      return state.historyList.filter((history) => {
+        if (
+          history.category === cat &&
+          history.date.slice(0, 6) === dateString.slice(0, 6)
+        ) {
+          return true;
+        }
+        return false;
+      });
+    });
+  };
+
+  // 금일 입출금 내역 가져오기
+  const todayHistory = computed(() => {
+    return state.historyList.filter((history) => history.date === dateString);
+  });
+
+  // 금월 입출금 내역 가져오기
+  const thisMonthHistory = computed(() => {
+    return state.historyList.filter(
+      (history) => history.date.slice(0, 6) === dateString.slice(0, 6)
+    );
+  });
+
+  // 금주 입출금 내역 가져오기
+
+  // 금월 카테고리 별 지출 금액 순 데이터 목록
+
+  // 월 수입 합계 가져오기(재유님)
+
+  // 월 지출 합계 가져오기(재유님)
+
+  //
+
+  //
+
+  //
+
+  /* actions */
+
+  // json server로 데이터 생성
+
+  // json server로 데이터 업데이트
+
+  // json server로 데이터 삭제
+
+  return {
+    memberList,
+    historyList,
+    periodicExpenseList,
+    historyIncome,
+    historyExpense,
+    getSearchList,
+    todayHistory,
+    thisMonthHistory,
+  };
+});

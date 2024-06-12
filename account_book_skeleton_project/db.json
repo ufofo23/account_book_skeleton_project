@@ -1,32 +1,66 @@
 {
-    "list" : [
-    {"member": [ {"id": "1", "name": "홍길동", "address": "123@naver.com",
-        "gender": "male",
-        "balance":  }
-    ]}, { "incomeCategory" : [ "월급", "용돈", "성과금", "환급", "더치페이" ]},
-        { "expenseCategory" : [ "식비", "교통비", "공과금", "유흥","문화","생황","저축","투자"]},
-   { "expenseCategory" : [ "현금", "신용카드", "체크카드", "계좌이체"]}
-    {"budget":[
-        {
-            "id": ,
-            "name": ,
-            "amount": ,
-            "date": ,
-            "category": ,
-            "purchaseMethod": ,
-            "isPeriodic": ,
-            "memo": 
-        }
-    ]}, {
+  "members": [
+    {
+      "id": "1",
+      "name": "홍길동",
+      "address": "123@naver.com",
+      "gender": "male",
+      "balance": "1000000"
+    }
+  ],
 
-    "periodicExpense":[ {
-            "id": ,
-            "name": ,
-            "amount": ,
-            "date": ,
-            "category": ,
-            "purchaseMethod": ,  "memo":    }
-    ] } ] }
+  "budget": [
+    {
+      "id": "1",
+      "name": "지출 내역 테스트",
+      "amount": "-1000",
+      "date": "20240612",
+      "category": "식비",
+      "purchaseMethod": "현금",
+      "isPeriodic": "false",
+      "memo": "지출 내역 테스트 용 샘플입니다."
+    },
+    {
+      "id": "2",
+      "name": "수입 내역 테스트",
+      "amount": "1000",
+      "date": "20240612",
+      "category": "용돈",
+      "purchaseMethod": "현금",
+      "isPeriodic": "false",
+      "memo": "수입 내역 테스트 용 샘플입니다."
+    },
+    {
+      "id": "3",
+      "name": "월간 내역 테스트",
+      "amount": "100000",
+      "date": "20240610",
+      "category": "월급",
+      "purchaseMethod": "현금",
+      "isPeriodic": "false",
+      "memo": "월간 내역 테스트 용 샘플입니다."
+    },
+    {
+      "id": "4",
+      "name": "월간 내역 테스트(전월 데이터)",
+      "amount": "100000",
+      "date": "20240610",
+      "category": "월급",
+      "purchaseMethod": "현금",
+      "isPeriodic": "false",
+      "memo": "월간 내역 테스트 용 샘플 전월 데이터로 출력 되지 않습니다."
+    }
+  ],
 
-
-    
+  "periodicExpense": [
+    {
+      "id": "1",
+      "name": "정기 테스트",
+      "amount": "-10000",
+      "date": "20240610",
+      "category": "공과금",
+      "purchaseMethod": "카드",
+      "memo": "정기 지출 테스트 용 샘플입니다."
+    }
+  ]
+}
