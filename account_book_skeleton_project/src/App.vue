@@ -19,6 +19,10 @@
     <div style="margin-top: 20px">금일 내역 : {{ todayHistory }}</div>
     <hr />
     <div style="margin-top: 20px">금월 내역 : {{ thisMonthHistory }}</div>
+    <hr />
+    <div style="margin-top: 20px">금주 내역 : {{ thisWeekHistory }}</div>
+    <hr />
+    <div style="margin-top: 20px">카테고리 목록 : {{ expenseOrder }}</div>
   </div>
 </template>
 <script setup>
@@ -47,5 +51,7 @@ const historyIncome = computed(() => historyListStore.historyIncome);
 const historyExpense = computed(() => historyListStore.historyExpense);
 const todayHistory = computed(() => historyListStore.todayHistory);
 const thisMonthHistory = computed(() => historyListStore.thisMonthHistory);
+const thisWeekHistory = computed(() => historyListStore.thisWeekHistory);
+const expenseOrder = computed(() => historyListStore.expenseOrder);
 </script>
 <style></style>

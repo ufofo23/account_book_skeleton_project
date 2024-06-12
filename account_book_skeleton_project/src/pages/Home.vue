@@ -1,5 +1,5 @@
 <template>
-  <div class="container" style="top: 100px; background-color: yellow">
+  <!-- <div class="container" style="top: 100px; background-color: yellow">
     <div>
       <span>월 수입: {{ budget.monthIncome }}</span>
       <span>월 지출: {{ budget.monthOutcome }}</span>
@@ -21,13 +21,13 @@
         <History />
       </div>
     </div>
-  </div>
+  </div> -->
 </template>
 <script setup>
-import { useRoute } from 'vue-router';
-import { reactive } from 'vue';
-import History from '../components/History.vue';
-const date = new Date();
-const router = useRoute();
+// import { useRoute } from 'vue-router';
+// import { reactive } from 'vue';
+// import History from '../components/History.vue';
+// const date = new Date();
+// const router = useRoute();
 </script>
 <style></style>

@@ -49,6 +49,26 @@
       "purchaseMethod": "현금",
       "isPeriodic": "false",
       "memo": "월간 내역 테스트 용 샘플 전월 데이터로 출력 되지 않습니다."
+    },
+    {
+      "id": "5",
+      "name": "주간 내역 테스트(전주 데이터)",
+      "amount": "100000",
+      "date": "20240608",
+      "category": "월급",
+      "purchaseMethod": "현금",
+      "isPeriodic": "false",
+      "memo": "주간 내역 테스트 용 샘플 전주 데이터로 출력 되지 않습니다."
+    },
+    {
+      "id": "6",
+      "name": "카테고리 별 내역 테스트",
+      "amount": "-5000",
+      "date": "20240612",
+      "category": "공과금",
+      "purchaseMethod": "현금",
+      "isPeriodic": "false",
+      "memo": "주간 내역 테스트 용 샘플 전주 데이터로 출력 되지 않습니다."
     }
   ],
 
