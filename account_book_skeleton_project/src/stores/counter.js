@@ -198,7 +198,13 @@ export const useHistoryListStore = defineStore('historyList', () => {
         isPeriodic,
         memo,
       };
-      const res = await axios.post(BASEURI_budget, payload);
+      let res;
+      if (payload.isPeriodic === 'false') {
+        res = await axios.post(BASEURI_budget, payload);
+      } else {
+        res = await axios.post(BASEURI_periodicExpense, payload);
+      }
+
       if (res.status === 201) {
         state.historyList.push({ ...res.data });
         successCallback();

@@ -19,8 +19,20 @@
         </div>
         <div class="form-group">
           <label for="amount" class="me-3 d-inline-block">금액</label>
-          <button type="button" class="btn btn-outline-warning btn-sm">
-            <!--click이벤트 추가 필요-->
+          <button
+            type="button"
+            class="btn btn-outline-warning btn-sm"
+            v-if="history.purchaseMethod === 'card'"
+            @click="() => (history.purchaseMethod = 'cash')"
+          >
+            카드
+          </button>
+          <button
+            type="button"
+            class="btn btn-warning btn-sm"
+            v-else
+            @click="() => (history.purchaseMethod = 'card')"
+          >
             현금
           </button>
           <input
@@ -33,8 +45,20 @@
         </div>
         <div class="form-group">
           <label for="date" class="me-3 d-inline-block">날짜</label>
-          <button type="button" class="btn btn-outline-warning btn-sm">
-            <!--click이벤트 추가 필요-->
+          <button
+            type="button"
+            class="btn btn-outline-warning btn-sm"
+            v-if="history.isPeriodic === 'false'"
+            @click="() => (history.isPeriodic = 'true')"
+          >
+            고정지출
+          </button>
+          <button
+            type="button"
+            class="btn btn-warning btn-sm"
+            v-else
+            @click="() => (history.isPeriodic = 'false')"
+          >
             고정지출
           </button>
           <input
@@ -120,6 +144,9 @@ const expenseCategory = [
   '투자',
 ];
 
+// 결제 방식
+const purchaseMethod = ['card', 'cash'];
+
 const history = reactive({
   name: '',
   amount: '0',
@@ -144,8 +171,6 @@ const addTodoHandler = () => {
     !name ||
     name.trim() === '' ||
     !amount ||
-    amount.trim() === '' ||
-    !isNaN(amount) ||
     !date ||
     date.trim() === '' ||
     category === '카테고리를 선택하세요'
