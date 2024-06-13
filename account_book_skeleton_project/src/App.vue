@@ -2,7 +2,7 @@
   <div>
     <Header />
     <RouterView />
-    <div style="margin-top: 120px">회원 : {{ memberList }}</div>
+    <!-- <div style="margin-top: 120px">회원 : {{ memberList }}</div>
     <hr />
     <div style="margin-top: 20px">전체 내역 : {{ historyList }}</div>
     <hr />
@@ -22,7 +22,7 @@
     <hr />
     <div style="margin-top: 20px">금주 내역 : {{ thisWeekHistory }}</div>
     <hr />
-    <div style="margin-top: 20px">카테고리 목록 : {{ expenseOrder }}</div>
+    <div style="margin-top: 20px">카테고리 목록 : {{ expenseOrder }}</div> -->
   </div>
 </template>
 <script setup>
@@ -31,8 +31,8 @@ import Header from '@/components/Header.vue';
 import { useHistoryListStore } from './stores/counter';
 
 const historyListStore = useHistoryListStore();
-const { getSearchList } = historyListStore;
-const search = getSearchList('식비');
+const { getHistoryByCategory } = historyListStore;
+const search = getHistoryByCategory('식비');
 
 const today = new Date();
 

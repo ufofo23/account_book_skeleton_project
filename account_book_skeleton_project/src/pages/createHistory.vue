@@ -102,7 +102,7 @@
           <button
             type="button"
             class="btn btn-primary mx-4 my-3"
-            @click="addTodoHandler"
+            @click="addHistoryHandler"
           >
             추 가
           </button>
@@ -116,7 +116,7 @@
 </template>
 <script setup>
 import { useHistoryListStore } from '@/stores/counter';
-import { ref, reactive, computed } from 'vue';
+import { reactive } from 'vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
@@ -129,6 +129,7 @@ const incomeCategory = [
   '성과금',
   '환급금',
   '더치페이',
+  '기타',
 ];
 
 // 출금 카테고리 배열
@@ -142,14 +143,12 @@ const expenseCategory = [
   '생활',
   '저축',
   '투자',
+  '기타',
 ];
-
-// 결제 방식
-const purchaseMethod = ['card', 'cash'];
 
 const history = reactive({
   name: '',
-  amount: '0',
+  amount: 0,
   date: '',
   category: '카테고리를 선택하세요',
   purchaseMethod: 'card',
@@ -162,8 +161,8 @@ const historyListStore = useHistoryListStore();
 // 분할할당으로 변수 넘겨주기
 const { addHistoryList } = historyListStore;
 
-// addHistory 다음에 처리할 로직과 함께 정의
-const addTodoHandler = () => {
+// addHistoryHandler 다음에 처리할 로직과 함께 정의
+const addHistoryHandler = () => {
   let { name, amount, date, category, purchaseMethod, isPeriodic, memo } =
     history;
 
@@ -171,6 +170,7 @@ const addTodoHandler = () => {
     !name ||
     name.trim() === '' ||
     !amount ||
+    amount === 0 ||
     !date ||
     date.trim() === '' ||
     category === '카테고리를 선택하세요'
@@ -181,7 +181,7 @@ const addTodoHandler = () => {
 
   history.date = history.date.replace(/-/g, '');
   addHistoryList({ ...history }, () => {
-    router.push('/home');
+    router.push('/');
   });
 };
 </script>

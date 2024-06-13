@@ -8,7 +8,7 @@
         <RouterLink to="#" id="homemenu" class="menu">통계</RouterLink>
       </nav>
     </div>
-    <RouterLink to="#" id="quickbutton">+</RouterLink>
+    <RouterLink to="/history/add" id="quickbutton">+</RouterLink>
   </div>
 </template>
 <script setup></script>

@@ -14,9 +14,8 @@
             type="text"
             class="form-control"
             id="name"
-            placeholder="기존값"
+            :placeholder="name"
           />
-          <!--v-model="name" 추가, placeholder 기존 값 필요-->
         </div>
         <div class="form-group">
           <label for="amount">금액</label>
@@ -24,9 +23,8 @@
             type="text"
             class="form-control"
             id="amount"
-            placeholder="기존값"
+            :placeholder="amount"
           />
-          <!--v-model="amount" 추가, placeholder 기존 값 필요-->
         </div>
         <div class="form-group">
           <label for="date" class="me-3 d-inline-block">날짜</label>
@@ -44,11 +42,19 @@
             class="form-control"
             id="category"
             style="width: 200px"
+            v-model="history.category"
+            :value="hi"
           >
-            <!--v-for로 변경 필요-->
-            <option>카테고리를 선택하세요</option>
-            <option value="foods">식비</option>
-            <option value="playing">유흥</option>
+            <option
+              v-if="parseInt(history.amount) >= 0"
+              v-for="cat in incomeCategory"
+              :value="cat"
+            >
+              {{ cat }}
+            </option>
+            <option v-else v-for="cat in expenseCategory" :value="cat">
+              {{ cat }}
+            </option>
           </select>
         </div>
         <div class="form-group d-flex justify-content-center">
@@ -62,7 +68,58 @@
     </div>
   </div>
 </template>
-<script setup></script>
+<script setup>
+import { useHistoryListStore } from '@/stores/counter';
+import { reactive } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
+
+const router = useRouter();
+const currentRoute = useRoute();
+
+const incomeCategory = [
+  '카테고리를 선택하세요',
+  '월급',
+  '용돈',
+  '성과금',
+  '환급금',
+  '더치페이',
+  '기타',
+];
+
+// 출금 카테고리 배열
+const expenseCategory = [
+  '카테고리를 선택하세요',
+  '식비',
+  '교통비',
+  '공과금',
+  '유흥',
+  '문화',
+  '생활',
+  '저축',
+  '투자',
+  '기타',
+];
+
+// store에서 가져오기(객체)
+const historyListStore = useHistoryListStore();
+
+// 분할할당으로 변수 넘겨주기
+const { getHistoryById } = historyListStore;
+
+// id 값으로 편집할 History 가져오기
+const findHistory = getHistoryById(currentRoute.params.id);
+
+const history = reactive({
+  id: findHistory[0].id,
+  name: findHistory[0].name,
+  amount: findHistory[0].amount,
+  date: findHistory[0].date,
+  category: findHistory[0].catogory,
+  purchaseMethod: findHistory[0].purchaseMethod,
+  isPeriodic: findHistory[0].isPeriodic,
+  memo: findHistory[0].memo,
+});
+</script>
 <style>
 .form-group {
   margin: 20px auto;
