@@ -89,6 +89,16 @@
       "category": "식비",
       "purchaseMethod": "카드",
       "memo": "정기 지출 테스트 용 샘플입니다."
+    },
+    {
+      "id": 1718246174531,
+      "name": "periodic test",
+      "amount": -2000,
+      "date": "20240613",
+      "category": "공과금",
+      "purchaseMethod": "cash",
+      "isPeriodic": "true",
+      "memo": "periodic test"
     }
   ]
 }
