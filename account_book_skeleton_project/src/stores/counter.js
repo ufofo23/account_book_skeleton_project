@@ -3,7 +3,7 @@ import { defineStore } from 'pinia';
 import axios from 'axios';
 
 const BASEURI_MEMBERS = '/api/members';
-const BASEURI_budget = '/api/budget';
+const BASEURI_budget = '/api/budget/';
 const BASEURI_periodicExpense = '/api/periodicExpense';
 
 const today = new Date();
@@ -27,6 +27,7 @@ export const useHistoryListStore = defineStore('historyList', () => {
   const fetchMemberList = async () => {
     try {
       const res = await axios.get(BASEURI_MEMBERS);
+
       if (res.status === 200) {
         state.memberList = res.data;
       } else {
@@ -74,6 +75,8 @@ export const useHistoryListStore = defineStore('historyList', () => {
   // 회원 정보 가져오기
   const memberList = computed(() => state.memberList);
 
+  // 회원 잔액 가져오기
+
   // 입출금 내역 가져오기
   const historyList = computed(() => state.historyList);
 
@@ -117,13 +120,87 @@ export const useHistoryListStore = defineStore('historyList', () => {
   });
 
   // 금주 입출금 내역 가져오기
+  const thisWeekHistory = computed(() => {
+    const sunday = Number(dateString) - today.getDay();
+    return state.historyList.filter((history) => {
+      if (Number(history.date) >= sunday && Number(history.date) < sunday + 7) {
+        return true;
+      }
+      return false;
+    });
+  });
 
   // 금월 카테고리 별 지출 금액 순 데이터 목록
+  const expenseOrder = computed(() => {
+    let order = [];
+    let sum;
+
+    // 카테고리 별 합계 가져오기
+    for (let cat of expenseCategory) {
+      sum = 0;
+      let curCategory = getSearchList(cat).value;
+      for (let i = 0; i < curCategory.length; ++i) {
+        sum += Number(curCategory[i].amount);
+      }
+      order.push([cat, sum]);
+    }
+    // order 오름차순 정렬하기
+    order.sort((a, b) => {
+      return a[1] - b[1];
+    });
+
+    return order;
+  });
+  // 선택 월 내역 가져오기
+  const getMonthList = (mon) => {
+    return computed(() => {
+      const totalbudget = [
+        ...state.historyList.filter((list) => list.date.slice(0, 6) == mon),
+        ...state.periodicExpenseList.filter(
+          (list) => list.date.slice(0, 6) == mon
+        ),
+      ];
+      return totalbudget;
+    });
+  };
 
   // 월 수입 합계 가져오기(재유님)
+  const totalMonthIncome = (mon) => {
+    return computed(() => {
+      const totalIncome = [
+        ...state.historyList.filter(
+          (list) => list.date.slice(0, 6) == mon && parseInt(list.amount) > 0
+        ),
+        ...state.periodicExpenseList.filter(
+          (list) => list.date.slice(0, 6) == mon && parseInt(list.amount) > 0
+        ),
+      ];
+      let sum = 0;
+      for (let amo of totalIncome) {
+        sum += parseInt(amo.amount);
+      }
+      return sum;
+    });
+  };
 
   // 월 지출 합계 가져오기(재유님)
-
+  const totalMonthOutcome = (mon) => {
+    return computed(() => {
+      const totalIncome = [
+        ...state.historyList.filter(
+          (list) => list.date.slice(0, 6) == mon && parseInt(list.amount) < 0
+        ),
+        ...state.periodicExpenseList.filter(
+          (list) => list.date.slice(0, 6) == mon && parseInt(list.amount) < 0
+        ),
+      ];
+      let sum = 0;
+      for (let amo of totalIncome) {
+        sum += parseInt(amo.amount);
+      }
+      return sum;
+    });
+  };
   //
 
   //
@@ -147,5 +224,8 @@ export const useHistoryListStore = defineStore('historyList', () => {
     getSearchList,
     todayHistory,
     thisMonthHistory,
+    getMonthList,
+    totalMonthIncome,
+    totalMonthOutcome,
   };
 });

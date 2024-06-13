@@ -1,5 +1,5 @@
 <template lang="">
-  <Header />
+  <!-- <Header />
   <div class="container" style="top: 100px">
     <div>
       <span>수입: {{ budget.monthIncome }}</span>
@@ -9,20 +9,19 @@
     <div class="topContainer"></div>
     <div v-for="(History, index) in topItems" :key="index" class="HistoryList">
         <h4>{{ History.HistoryList }}</h4>
-  </div>
+  </div> -->
 </template>
 <script setup>
-import { useRoute } from "vue-router";
-import { reactive } from "vue";
-import { useHistoryStore } from "@/stores/historyList.js";
-import {} from "vue-char.js";
+// import { useRoute } from 'vue-router';
+// import { reactive } from 'vue';
+// import { useHistoryStore } from '@/stores/historyList.js';
+// import {} from 'vue-char.js';
 
+// const { createHistory } = useHistoryListStore();
+// import { useRoute } from 'vue-router';
+// import { reactive } from 'vue';
+// const router = useRoute();
 
-const { createHistory } = useHistoryListStore();
-import { useRoute } from 'vue-router';
-import { reactive } from 'vue';
-const router = useRoute();
-
-const createHistoryHandler = () => {};
+// const createHistoryHandler = () => {};
 </script>
 <style></style>
