@@ -8,7 +8,6 @@
       "balance": "1000000"
     }
   ],
-
   "budget": [
     {
       "id": "1",
@@ -69,16 +68,25 @@
       "purchaseMethod": "현금",
       "isPeriodic": "false",
       "memo": "주간 내역 테스트 용 샘플 전주 데이터로 출력 되지 않습니다."
+    },
+    {
+      "id": 1718198183755,
+      "name": "AddTest",
+      "amount": "-1000",
+      "date": "20240612",
+      "category": "식비",
+      "purchaseMethod": "card",
+      "isPeriodic": "false",
+      "memo": "memo1\nmemo2"
     }
   ],
-
   "periodicExpense": [
     {
       "id": "1",
       "name": "정기 테스트",
       "amount": "-10000",
       "date": "20240610",
-      "category": "공과금",
+      "category": "식비",
       "purchaseMethod": "카드",
       "memo": "정기 지출 테스트 용 샘플입니다."
     }

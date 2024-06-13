@@ -1,7 +1,6 @@
 import { reactive, computed } from 'vue';
 import { defineStore } from 'pinia';
 import axios from 'axios';
-import { toRaw } from 'vue';
 
 const BASEURI_MEMBERS = '/api/members';
 const BASEURI_budget = '/api/budget';
@@ -151,19 +150,24 @@ export const useHistoryListStore = defineStore('historyList', () => {
 
   // 금월 카테고리 별 지출 금액 순 데이터 목록
   const expenseOrder = computed(() => {
-    let order = {};
+    let order = [];
     let sum;
+
+    // 카테고리 별 합계 가져오기
     for (let cat of expenseCategory) {
       sum = 0;
-
-      console.log(toRaw(getSearchList(cat).value[0]));
-      for (let data in toRaw(getSearchList(cat).value[0])) {
-        sum += Number(data.amount);
+      let curCategory = getSearchList(cat).value;
+      for (let i = 0; i < curCategory.length; ++i) {
+        sum += Number(curCategory[i].amount);
       }
-      // console.log(sum);
-      order[cat] = sum;
+      order.push([cat, sum]);
     }
-    // console.log(order);
+    // order 오름차순 정렬하기
+    order.sort((a, b) => {
+      return a[1] - b[1];
+    });
+
+    return order;
   });
 
   // 월 수입 합계 가져오기(재유님)
@@ -178,7 +182,34 @@ export const useHistoryListStore = defineStore('historyList', () => {
 
   /* actions */
 
-  // json server로 데이터 생성
+  // axios로 json에 historyList를 생성할 함수 선언
+  const addHistoryList = async (
+    { name, amount, date, category, purchaseMethod, isPeriodic, memo },
+    successCallback
+  ) => {
+    try {
+      const payload = {
+        id: today.getTime(),
+        name,
+        amount,
+        date,
+        category,
+        purchaseMethod,
+        isPeriodic,
+        memo,
+      };
+      const res = await axios.post(BASEURI_budget, payload);
+      if (res.status === 201) {
+        state.historyList.push({ ...res.data });
+        successCallback();
+      } else {
+        console.log(res.status);
+        alert('내역 추가 실패');
+      }
+    } catch (e) {
+      alert(e);
+    }
+  };
 
   // json server로 데이터 업데이트
 
@@ -195,5 +226,6 @@ export const useHistoryListStore = defineStore('historyList', () => {
     thisMonthHistory,
     thisWeekHistory,
     expenseOrder,
+    addHistoryList,
   };
 });
