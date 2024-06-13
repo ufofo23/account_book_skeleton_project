@@ -1,13 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <link rel="icon" href="/favicon.ico">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vite App</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Account Book</title>
+    <link rel="shortcut icon" type="image/x-icon" href="SO.png" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <script
+      type="text/javascript"
+      src="https://www.gstatic.com/charts/loader.js"
+      
+    ></script>
   </head>
   <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
+    <div id="app">
+      <p class="my-header">월 수입: <input
+      type="text"
+      v-model.number="income"
+      v-on:keyup.enter="fixIncome"
+      placeholder="500000"
+    /></p>
+      <p class="my-header">월 지출: {{expense}}</p>
+      <p class="my-header">잔액: {{profit}}</p>
+      <input type="date" /><br/>
+      <input type="text" placeholder="거래처" />
+      <input type="text" placeholder="카테고리" />
+      <input type="num" placeholder="금액" />
+      <input type="text" placeholder="메모" />
+      <button v-on:click="fixIncome">수정</button>
+      <button v-on:click="removeList(index)">삭제</button>
+    </div>
+
+     
+      <p>
+        
+        <input
+          type="text"
+          v-model.trim="addText"
+          placeholder="거래처"
+          id="cont"
+        />
+        <input
+          type="text"
+          v-model.trim="addText"
+          placeholder="카테고리"
+          id="cont"
+        />
+        <input
+          type="text"
+          v-model.number="addPrice"
+          v-on:keyup.enter="addList"
+          placeholder="금액"
+        />
+        <input
+          type="text"
+          v-model.trim="addText"
+          placeholder="메모"
+          id="cont"
+        />
+        <button v-on:click="addList">추가</button>
+      </p>
+    
+      <div v-for="(item, index) in myArray">
+        <ul>
+          
+        </ul>
+      </div>
+    </div>
+   
+    <div id="barchart_material"></div>
+
+    <script>
+      //----------------------------------------------------------------------
+      var app = new Vue({
+        el: '#app',
+        data: {
+          totalPrice: 0,
+          addText: '',
+          addPrice: 0,
+          myArray: ["content":"", "price":""],
+          income: 5000,
+        },
+        computed: {
+          expense: function () {
+            var s = 0;
+            for (var i = 0; i < this.myArray.length; i++) {
+              s += this.myArray[i].price;
+            }
+            return s;
+          },
+          profit: function () {
+            return this.income - this.expense;
+          },
+        },
+        methods: {
+          addList: function () {
+            if (isNaN(this.addPrice)) {
+              alert('숫자를 입력하세요.');
+              return;
+            }
+            this.myArray.push({ content: this.addText, price: this.addPrice });
+            this.addText = '';
+            this.addPrice = 0;
+            document.getElementById('cont').focus();
+
+            this.chartRefresh();
+          },
+          removeList: function (idx) {
+            this.myArray.splice(idx, 1);
+          },
+          fixIncome: function () {
+            this.chartRefresh();
+          },
+        },
+      });
+    </script>
   </body>
 </html>
