@@ -2,7 +2,7 @@
   <div>
     <Header />
     <RouterView />
-    <div style="margin-top: 120px">회원 : {{ memberList }}</div>
+    <!-- <div style="margin-top: 120px">회원 : {{ memberList }}</div>
     <hr />
     <div style="margin-top: 20px">전체 내역 : {{ historyList }}</div>
     <hr />
@@ -18,34 +18,39 @@
     <hr />
     <div style="margin-top: 20px">금일 내역 : {{ todayHistory }}</div>
     <hr />
-    <div style="margin-top: 20px">금월 내역 : {{ thisMonthHistory }}</div>
+    <div style="margin-top: 20px">금월 내역 : {{ thisMonthHistory }}</div> -->
   </div>
 </template>
 <script setup>
 import { computed } from 'vue';
 import Header from '@/components/Header.vue';
 import { useHistoryListStore } from './stores/counter';
-
 const historyListStore = useHistoryListStore();
-const { getSearchList } = historyListStore;
-const search = getSearchList('식비');
+const fetchHistoryList = historyListStore.fetchHistoryList;
+fetchHistoryList;
 
-const today = new Date();
+// const { getMonthList } = historyListStore;
+// const historyListStore = useHistoryListStore();
+// console.log(getMonthList(202406));
+// const { getSearchList } = historyListStore;
+// const search = getSearchList('식비');
 
-const year = today.getFullYear();
-const month = ('0' + (today.getMonth() + 1)).slice(-2);
-const day = ('0' + today.getDate()).slice(-2);
+// const today = new Date();
 
-const dateString = year + month + day;
+// const year = today.getFullYear();
+// const month = ('0' + (today.getMonth() + 1)).slice(-2);
+// const day = ('0' + today.getDate()).slice(-2);
 
-const memberList = computed(() => historyListStore.memberList);
-const historyList = computed(() => historyListStore.historyList);
-const periodicExpenseList = computed(
-  () => historyListStore.periodicExpenseList
-);
-const historyIncome = computed(() => historyListStore.historyIncome);
-const historyExpense = computed(() => historyListStore.historyExpense);
-const todayHistory = computed(() => historyListStore.todayHistory);
-const thisMonthHistory = computed(() => historyListStore.thisMonthHistory);
+// const dateString = year + month + day;
+
+// const memberList = computed(() => historyListStore.memberList);
+// const historyList = computed(() => historyListStore.historyList);
+// const periodicExpenseList = computed(
+//   () => historyListStore.periodicExpenseList
+// );
+// const historyIncome = computed(() => historyListStore.historyIncome);
+// const historyExpense = computed(() => historyListStore.historyExpense);
+// const todayHistory = computed(() => historyListStore.todayHistory);
+// const thisMonthHistory = computed(() => historyListStore.thisMonthHistory);
 </script>
 <style></style>
