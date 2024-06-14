@@ -22,13 +22,13 @@
 </template>
 
 <script setup>
-import { useRouter } from "vue-router";
-import { inject } from "vue";
+import { useRouter } from 'vue-router';
+import { inject } from 'vue';
 
 defineProps({
   historyList: { Type: Object, required: true },
 });
 
 const router = useRouter();
-const { deleteHistory } = inject("actions");
+// const { deleteHistory } = inject("actions");
 </script>
