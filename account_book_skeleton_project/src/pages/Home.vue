@@ -129,6 +129,7 @@ import { reactive } from 'vue';
 import { useHistoryListStore } from '@/stores/counter';
 const router = useRoute();
 const historyListStore = useHistoryListStore();
+const {
   fetchHistoryList,
   fetchMemberList,
   getMonthList,
