@@ -1,21 +1,13 @@
 <template>
   <li class="list-group-item">
-    <div><span class="fw-bold">거래처</span> {{ historyList.merchant }}</div>
-    <div><span class="fw-bold">카테고리</span> {{ historyList.category }}</div>
-    <div><span class="fw-bold">금액</span> {{ historyList.amount }}</div>
-    <div><span class="fw-bold">메모</span> {{ historyList.memo }}</div>
+    <span class="fw-bold">거래처</span> {{}}
+    <span class="fw-bold">카테고리</span> {{}}
+    <span class="fw-bold">금액</span> {{}}
+    <span class="fw-bold">메모</span> {{}}
 
-    <span
-      class="float-end badge bg-secondary pointer m-1"
-      @click="router.push(`/History/edit/${historyList.id}`)"
-    >
-      수정
-    </span>
+    <span class="float-end badge bg-secondary pointer m-1"> 수정 </span>
 
-    <span
-      class="float-end badge bg-secondary pointer m-1"
-      @click="deleteHistory(historyList.id)"
-    >
+    <span class="float-end badge bg-secondary pointer m-1" @click="">
       삭제</span
     >
   </li>
