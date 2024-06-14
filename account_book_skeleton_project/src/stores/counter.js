@@ -111,7 +111,7 @@ export const useHistoryListStore = defineStore('historyList', () => {
   });
 
   //카테고리 별 내역 가져오기(금월기준)
-  const getSearchList = (cat) => {
+  const getHistoryByCategory = (cat) => {
     return computed(() => {
       return state.historyList.filter((history) => {
         if (
@@ -156,7 +156,7 @@ export const useHistoryListStore = defineStore('historyList', () => {
     // 카테고리 별 합계 가져오기
     for (let cat of expenseCategory) {
       sum = 0;
-      let curCategory = getSearchList(cat).value;
+      let curCategory = getHistoryByCategory(cat).value;
       for (let i = 0; i < curCategory.length; ++i) {
         sum += Number(curCategory[i].amount);
       }
@@ -174,7 +174,17 @@ export const useHistoryListStore = defineStore('historyList', () => {
 
   // 월 지출 합계 가져오기(재유님)
 
-  //
+  // id로 내역 가져오기
+  const getHistoryById = (id) => {
+    return computed(() => {
+      return state.historyList.filter((history) => {
+        if (history.id === id) {
+          return true;
+        }
+        return false;
+      });
+    });
+  };
 
   //
 
@@ -218,6 +228,43 @@ export const useHistoryListStore = defineStore('historyList', () => {
   };
 
   // json server로 데이터 업데이트
+  const updateHistoryList = async (
+    beforeId,
+    { name, amount, date, category, purchaseMethod, isPeriodic, memo },
+    successCallback
+  ) => {
+    try {
+      const payload = {
+        id: today.getTime(),
+        name,
+        amount,
+        date,
+        category,
+        purchaseMethod,
+        isPeriodic,
+        memo,
+      };
+      let res;
+      if (payload.isPeriodic === 'false') {
+        res = await axios.put(BASEURI_budget + `/${beforeId}`, payload);
+      } else {
+        res = await axios.put(
+          BASEURI_periodicExpense + `/${beforeId}`,
+          payload
+        );
+      }
+
+      if (res.status === 200) {
+        state.historyList.push({ ...res.data });
+        successCallback();
+      } else {
+        console.log(res.status);
+        alert('내역 수정 실패');
+      }
+    } catch (e) {
+      alert(e);
+    }
+  };
 
   // json server로 데이터 삭제
 
@@ -227,11 +274,13 @@ export const useHistoryListStore = defineStore('historyList', () => {
     periodicExpenseList,
     historyIncome,
     historyExpense,
-    getSearchList,
+    getHistoryByCategory,
     todayHistory,
     thisMonthHistory,
     thisWeekHistory,
     expenseOrder,
+    getHistoryById,
     addHistoryList,
+    updateHistoryList,
   };
 });

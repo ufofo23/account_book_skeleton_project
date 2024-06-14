@@ -12,7 +12,7 @@
     {
       "id": "1",
       "name": "지출 내역 테스트",
-      "amount": "-1000",
+      "amount": -1000,
       "date": "20240612",
       "category": "식비",
       "purchaseMethod": "현금",
@@ -22,7 +22,7 @@
     {
       "id": "2",
       "name": "수입 내역 테스트",
-      "amount": "1000",
+      "amount": 1000,
       "date": "20240612",
       "category": "용돈",
       "purchaseMethod": "현금",
@@ -31,18 +31,18 @@
     },
     {
       "id": "3",
-      "name": "월간 내역 테스트",
-      "amount": "100000",
-      "date": "20240610",
+      "name": "내역 변경 테스트",
+      "amount": 2000,
+      "date": "20240613",
       "category": "월급",
-      "purchaseMethod": "현금",
+      "purchaseMethod": "card",
       "isPeriodic": "false",
-      "memo": "월간 내역 테스트 용 샘플입니다."
+      "memo": ""
     },
     {
       "id": "4",
       "name": "월간 내역 테스트(전월 데이터)",
-      "amount": "100000",
+      "amount": 100000,
       "date": "20240610",
       "category": "월급",
       "purchaseMethod": "현금",
@@ -52,7 +52,7 @@
     {
       "id": "5",
       "name": "주간 내역 테스트(전주 데이터)",
-      "amount": "100000",
+      "amount": 100000,
       "date": "20240608",
       "category": "월급",
       "purchaseMethod": "현금",
@@ -62,7 +62,7 @@
     {
       "id": "6",
       "name": "카테고리 별 내역 테스트",
-      "amount": "-5000",
+      "amount": -5000,
       "date": "20240612",
       "category": "공과금",
       "purchaseMethod": "현금",
@@ -70,28 +70,38 @@
       "memo": "주간 내역 테스트 용 샘플 전주 데이터로 출력 되지 않습니다."
     },
     {
-      "id": 1718198183755,
+      "id": "1718198183755",
       "name": "AddTest",
-      "amount": "-1000",
+      "amount": -1000,
       "date": "20240612",
       "category": "식비",
       "purchaseMethod": "card",
       "isPeriodic": "false",
       "memo": "memo1\nmemo2"
+    },
+    {
+      "id": "1718256799150",
+      "name": "zero test",
+      "amount": 10,
+      "date": "20240613",
+      "category": "기타",
+      "purchaseMethod": "cash",
+      "isPeriodic": "false",
+      "memo": ""
     }
   ],
   "periodicExpense": [
     {
       "id": "1",
       "name": "정기 테스트",
-      "amount": "-10000",
+      "amount": -10000,
       "date": "20240610",
       "category": "식비",
       "purchaseMethod": "카드",
       "memo": "정기 지출 테스트 용 샘플입니다."
     },
     {
-      "id": 1718246174531,
+      "id": "1718246174531",
       "name": "periodic test",
       "amount": -2000,
       "date": "20240613",

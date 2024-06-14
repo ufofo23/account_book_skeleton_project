@@ -113,11 +113,15 @@
           <button
             type="button"
             class="btn btn-primary mx-4 my-3"
-            @click="addTodoHandler"
+            @click="addHistoryHandler"
           >
             추 가
           </button>
-          <button type="button" class="btn btn-secondary mx-4 my-3">
+          <button
+            type="button"
+            class="btn btn-secondary mx-4 my-3"
+            @click="router.push('#')"
+          >
             취 소
           </button>
         </div>
@@ -126,24 +130,41 @@
   </div>
 </template>
 <script setup>
+<<<<<<< HEAD
 import { useHistoryListStore } from "@/stores/counter";
 import { ref, reactive, computed } from "vue";
 import { useRouter } from "vue-router";
+=======
+import { useHistoryListStore } from '@/stores/counter';
+import { reactive } from 'vue';
+import { useRouter } from 'vue-router';
+>>>>>>> 62b91be0e24b649f752730bcbefdac83588f9e93
 
 const router = useRouter();
 
 // 입금 카테고리 배열
 const incomeCategory = [
+<<<<<<< HEAD
   "카테고리를 선택하세요",
   "월급",
   "용돈",
   "성과금",
   "환급금",
   "더치페이",
+=======
+  '카테고리를 선택하세요',
+  '월급',
+  '용돈',
+  '성과금',
+  '환급금',
+  '더치페이',
+  '기타',
+>>>>>>> 62b91be0e24b649f752730bcbefdac83588f9e93
 ];
 
 // 출금 카테고리 배열
 const expenseCategory = [
+<<<<<<< HEAD
   "카테고리를 선택하세요",
   "식비",
   "교통비",
@@ -166,6 +187,28 @@ const history = reactive({
   purchaseMethod: "card",
   isPeriodic: "false",
   memo: "",
+=======
+  '카테고리를 선택하세요',
+  '식비',
+  '교통비',
+  '공과금',
+  '유흥',
+  '문화',
+  '생활',
+  '저축',
+  '투자',
+  '기타',
+];
+
+const history = reactive({
+  name: '',
+  amount: 0,
+  date: '',
+  category: '카테고리를 선택하세요',
+  purchaseMethod: 'card',
+  isPeriodic: 'false',
+  memo: '',
+>>>>>>> 62b91be0e24b649f752730bcbefdac83588f9e93
 });
 
 // store에서 가져오기(객체)
@@ -173,8 +216,8 @@ const historyListStore = useHistoryListStore();
 // 분할할당으로 변수 넘겨주기
 const { addHistoryList } = historyListStore;
 
-// addHistory 다음에 처리할 로직과 함께 정의
-const addTodoHandler = () => {
+// addHistoryHandler 다음에 처리할 로직과 함께 정의
+const addHistoryHandler = () => {
   let { name, amount, date, category, purchaseMethod, isPeriodic, memo } =
     history;
 
@@ -182,6 +225,7 @@ const addTodoHandler = () => {
     !name ||
     name.trim() === "" ||
     !amount ||
+    amount === 0 ||
     !date ||
     date.trim() === "" ||
     category === "카테고리를 선택하세요"
@@ -192,7 +236,11 @@ const addTodoHandler = () => {
 
   history.date = history.date.replace(/-/g, "");
   addHistoryList({ ...history }, () => {
+<<<<<<< HEAD
     router.push("/home");
+=======
+    router.push('/');
+>>>>>>> 62b91be0e24b649f752730bcbefdac83588f9e93
   });
 };
 </script>
