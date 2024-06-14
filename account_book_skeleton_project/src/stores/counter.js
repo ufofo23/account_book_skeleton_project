@@ -1,20 +1,47 @@
-import { reactive, computed } from 'vue';
-import { defineStore } from 'pinia';
-import axios from 'axios';
+import { reactive, computed } from "vue";
+import { defineStore } from "pinia";
+import axios from "axios";
 
+<<<<<<< HEAD
+const BASEURI_MEMBERS = "/api/members";
+const BASEURI_budget = "/api/budget/";
+const BASEURI_periodicExpense = "/api/periodicExpense";
+=======
 const BASEURI_MEMBERS = '/api/members';
 const BASEURI_budget = '/api/budget/';
 const BASEURI_periodicExpense = '/api/periodicExpense';
+>>>>>>> 0f992555a91406eff03046fba034e2b2ad4c491b
 
+// Date 인스턴스
 const today = new Date();
 
+// 금일 년, 월, 일 데이터
 const year = today.getFullYear();
-const month = ('0' + (today.getMonth() + 1)).slice(-2);
-const day = ('0' + today.getDate()).slice(-2);
+const month = ("0" + (today.getMonth() + 1)).slice(-2);
+const day = ("0" + today.getDate()).slice(-2);
 
+// 금일 날짜 문장열 (ex)"20240612")
 const dateString = year + month + day;
 
-export const useHistoryListStore = defineStore('historyList', () => {
+// 입금 카테고리 배열
+const incomeCategory = ["월급", "용돈", "성과금", "환급금", "더치페이"];
+
+// 출금 카테고리 배열
+const expenseCategory = [
+  "식비",
+  "교통비",
+  "공과금",
+  "유흥",
+  "문화",
+  "생활",
+  "저축",
+  "투자",
+];
+
+// 결제 방법 배열
+const purchaseMethod = ["현금", "신용카드", "체크카드", "계좌이체"];
+
+export const useHistoryListStore = defineStore("historyList", () => {
   /* 반응형 상태 */
   // 상태 저장 배열
   const state = reactive({
@@ -31,7 +58,7 @@ export const useHistoryListStore = defineStore('historyList', () => {
       if (res.status === 200) {
         state.memberList = res.data;
       } else {
-        alert('데이터 조회 실패');
+        alert("데이터 조회 실패");
       }
     } catch (e) {
       alert(e);
@@ -45,7 +72,7 @@ export const useHistoryListStore = defineStore('historyList', () => {
       if (res.status === 200) {
         state.historyList = res.data;
       } else {
-        alert('데이터 조회 실패');
+        alert("데이터 조회 실패");
       }
     } catch (e) {
       alert(e);
@@ -59,7 +86,7 @@ export const useHistoryListStore = defineStore('historyList', () => {
       if (res.status === 200) {
         state.periodicExpenseList = res.data;
       } else {
-        alert('데이터 조회 실패');
+        alert("데이터 조회 실패");
       }
     } catch (e) {
       alert(e);
@@ -209,7 +236,34 @@ export const useHistoryListStore = defineStore('historyList', () => {
 
   /* actions */
 
-  // json server로 데이터 생성
+  // axios로 json에 historyList를 생성할 함수 선언
+  const addHistoryList = async (
+    { name, amount, date, category, purchaseMethod, isPeriodic, memo },
+    successCallback
+  ) => {
+    try {
+      const payload = {
+        id: today.getTime(),
+        name,
+        amount,
+        date,
+        category,
+        purchaseMethod,
+        isPeriodic,
+        memo,
+      };
+      const res = await axios.post(BASEURI_budget, payload);
+      if (res.status === 201) {
+        state.historyList.push({ ...res.data });
+        successCallback();
+      } else {
+        console.log(res.status);
+        alert("내역 추가 실패");
+      }
+    } catch (e) {
+      alert(e);
+    }
+  };
 
   // json server로 데이터 업데이트
 
@@ -224,6 +278,12 @@ export const useHistoryListStore = defineStore('historyList', () => {
     getSearchList,
     todayHistory,
     thisMonthHistory,
+<<<<<<< HEAD
+    thisWeekHistory,
+    expenseOrder,
+    addHistoryList,
+=======
+>>>>>>> 0f992555a91406eff03046fba034e2b2ad4c491b
     getMonthList,
     totalMonthIncome,
     totalMonthOutcome,
