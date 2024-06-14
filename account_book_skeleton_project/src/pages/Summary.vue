@@ -11,6 +11,7 @@
     </div>
     <div class="topContainer"></div>
     <div v-for="(History, index) in topItems" :key="index" class="HistoryList">
+<<<<<<< HEAD
       <h4>{{ History.HistoryList }}</h4>
     </div>
   </div>
@@ -82,6 +83,23 @@ onMounted(() => {
     },
   });
 });
+=======
+        <h4>{{ History.HistoryList }}</h4>
+  </div> -->
+</template>
+<script setup>
+// import { useRoute } from 'vue-router';
+// import { reactive } from 'vue';
+// import { useHistoryStore } from '@/stores/historyList.js';
+// import {} from 'vue-char.js';
+
+// const { createHistory } = useHistoryListStore();
+// import { useRoute } from 'vue-router';
+// import { reactive } from 'vue';
+// const router = useRoute();
+
+// const createHistoryHandler = () => {};
+>>>>>>> 0f992555a91406eff03046fba034e2b2ad4c491b
 </script>
 <style scoped>
 .chart-wrapper {

@@ -2,9 +2,15 @@ import { reactive, computed } from "vue";
 import { defineStore } from "pinia";
 import axios from "axios";
 
+<<<<<<< HEAD
 const BASEURI_MEMBERS = "/api/members";
 const BASEURI_budget = "/api/budget/";
 const BASEURI_periodicExpense = "/api/periodicExpense";
+=======
+const BASEURI_MEMBERS = '/api/members';
+const BASEURI_budget = '/api/budget/';
+const BASEURI_periodicExpense = '/api/periodicExpense';
+>>>>>>> 0f992555a91406eff03046fba034e2b2ad4c491b
 
 // Date 인스턴스
 const today = new Date();
@@ -272,9 +278,12 @@ export const useHistoryListStore = defineStore("historyList", () => {
     getSearchList,
     todayHistory,
     thisMonthHistory,
+<<<<<<< HEAD
     thisWeekHistory,
     expenseOrder,
     addHistoryList,
+=======
+>>>>>>> 0f992555a91406eff03046fba034e2b2ad4c491b
     getMonthList,
     totalMonthIncome,
     totalMonthOutcome,

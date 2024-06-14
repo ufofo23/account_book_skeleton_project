@@ -23,6 +23,7 @@
     <div style="margin-top: 20px">금주 내역 : {{ thisWeekHistory }}</div>
     <hr />
     <div style="margin-top: 20px">카테고리 목록 : {{ expenseOrder }}</div>
+    <div style="margin-top: 20px">금월 내역 : {{ thisMonthHistory }}</div> -->
   </div>
 </template>
 <script setup>
@@ -30,8 +31,12 @@ import { computed } from 'vue';
 import Header from '@/components/Header.vue';
 import { useHistoryListStore } from './stores/counter';
 const historyListStore = useHistoryListStore();
-const fetchHistoryList = historyListStore.fetchHistoryList;
-fetchHistoryList;
+
+// const { getMonthList } = historyListStore;
+// const historyListStore = useHistoryListStore();
+// console.log(getMonthList(202406));
+// const { getSearchList } = historyListStore;
+// const search = getSearchList('식비');
 
 // const { getMonthList } = historyListStore;
 // const historyListStore = useHistoryListStore();
@@ -40,23 +45,37 @@ fetchHistoryList;
 // const search = getSearchList('식비');
 
 // const today = new Date();
+// const today = new Date();
 
+// const year = today.getFullYear();
+// const month = ('0' + (today.getMonth() + 1)).slice(-2);
+// const day = ('0' + today.getDate()).slice(-2);
 // const year = today.getFullYear();
 // const month = ('0' + (today.getMonth() + 1)).slice(-2);
 // const day = ('0' + today.getDate()).slice(-2);
 
 // const dateString = year + month + day;
+// const dateString = year + month + day;
 
-const memberList = computed(() => historyListStore.memberList);
-const historyList = computed(() => historyListStore.historyList);
-const periodicExpenseList = computed(
-  () => historyListStore.periodicExpenseList
-);
-const historyIncome = computed(() => historyListStore.historyIncome);
-const historyExpense = computed(() => historyListStore.historyExpense);
-const todayHistory = computed(() => historyListStore.todayHistory);
-const thisMonthHistory = computed(() => historyListStore.thisMonthHistory);
-const thisWeekHistory = computed(() => historyListStore.thisWeekHistory);
-const expenseOrder = computed(() => historyListStore.expenseOrder);
+// const memberList = computed(() => historyListStore.memberList);
+// const historyList = computed(() => historyListStore.historyList);
+// const periodicExpenseList = computed(
+//   () => historyListStore.periodicExpenseList
+// );
+// const historyIncome = computed(() => historyListStore.historyIncome);
+// const historyExpense = computed(() => historyListStore.historyExpense);
+// const todayHistory = computed(() => historyListStore.todayHistory);
+// const thisMonthHistory = computed(() => historyListStore.thisMonthHistory);
+// const thisWeekHistory = computed(() => historyListStore.thisWeekHistory);
+// const expenseOrder = computed(() => historyListStore.expenseOrder);
+// const memberList = computed(() => historyListStore.memberList);
+// const historyList = computed(() => historyListStore.historyList);
+// const periodicExpenseList = computed(
+//   () => historyListStore.periodicExpenseList
+// );
+// const historyIncome = computed(() => historyListStore.historyIncome);
+// const historyExpense = computed(() => historyListStore.historyExpense);
+// const todayHistory = computed(() => historyListStore.todayHistory);
+// const thisMonthHistory = computed(() => historyListStore.thisMonthHistory);
 </script>
 <style></style>
