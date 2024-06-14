@@ -91,43 +91,43 @@
   </div>
 </template>
 <script setup>
-import { useHistoryListStore } from '@/stores/counter';
-import { ref, reactive, computed } from 'vue';
-import { useRouter } from 'vue-router';
+import { useHistoryListStore } from "@/stores/counter";
+import { ref, reactive, computed } from "vue";
+import { useRouter } from "vue-router";
 
 const router = useRouter();
 
 // 입금 카테고리 배열
 const incomeCategory = [
-  '카테고리를 선택하세요',
-  '월급',
-  '용돈',
-  '성과금',
-  '환급금',
-  '더치페이',
+  "카테고리를 선택하세요",
+  "월급",
+  "용돈",
+  "성과금",
+  "환급금",
+  "더치페이",
 ];
 
 // 출금 카테고리 배열
 const expenseCategory = [
-  '카테고리를 선택하세요',
-  '식비',
-  '교통비',
-  '공과금',
-  '유흥',
-  '문화',
-  '생활',
-  '저축',
-  '투자',
+  "카테고리를 선택하세요",
+  "식비",
+  "교통비",
+  "공과금",
+  "유흥",
+  "문화",
+  "생활",
+  "저축",
+  "투자",
 ];
 
 const history = reactive({
-  name: '',
-  amount: '0',
-  date: '',
-  category: '카테고리를 선택하세요',
-  purchaseMethod: 'card',
-  isPeriodic: 'false',
-  memo: '',
+  name: "",
+  amount: "0",
+  date: "",
+  category: "카테고리를 선택하세요",
+  purchaseMethod: "card",
+  isPeriodic: "false",
+  memo: "",
 });
 
 // store에서 가져오기(객체)
@@ -142,21 +142,21 @@ const addTodoHandler = () => {
 
   if (
     !name ||
-    name.trim() === '' ||
+    name.trim() === "" ||
     !amount ||
-    amount.trim() === '' ||
+    amount.trim() === "" ||
     !isNaN(amount) ||
     !date ||
-    date.trim() === '' ||
-    category === '카테고리를 선택하세요'
+    date.trim() === "" ||
+    category === "카테고리를 선택하세요"
   ) {
-    alert('내용을 입력해주세요.');
+    alert("내용을 입력해주세요.");
     return;
   }
 
-  history.date = history.date.replace(/-/g, '');
+  history.date = history.date.replace(/-/g, "");
   addHistoryList({ ...history }, () => {
-    router.push('/home');
+    router.push("/home");
   });
 };
 </script>

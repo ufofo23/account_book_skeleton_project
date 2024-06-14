@@ -3,7 +3,7 @@
     <div id="background">
       <div class="menu">에구머니</div>
       <nav>
-        <RouterLink to="#" id="homemenu" class="menu">HOME</RouterLink>
+        <RouterLink to="/" id="homemenu" class="menu">HOME</RouterLink>
         <RouterLink to="#" id="homemenu" class="menu">거래내역</RouterLink>
         <RouterLink to="#" id="homemenu" class="menu">통계</RouterLink>
       </nav>

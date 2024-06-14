@@ -1,41 +1,41 @@
-import { reactive, computed } from 'vue';
-import { defineStore } from 'pinia';
-import axios from 'axios';
+import { reactive, computed } from "vue";
+import { defineStore } from "pinia";
+import axios from "axios";
 
-const BASEURI_MEMBERS = '/api/members';
-const BASEURI_budget = '/api/budget';
-const BASEURI_periodicExpense = '/api/periodicExpense';
+const BASEURI_MEMBERS = "/api/members";
+const BASEURI_budget = "/api/budget/";
+const BASEURI_periodicExpense = "/api/periodicExpense";
 
 // Date 인스턴스
 const today = new Date();
 
 // 금일 년, 월, 일 데이터
 const year = today.getFullYear();
-const month = ('0' + (today.getMonth() + 1)).slice(-2);
-const day = ('0' + today.getDate()).slice(-2);
+const month = ("0" + (today.getMonth() + 1)).slice(-2);
+const day = ("0" + today.getDate()).slice(-2);
 
 // 금일 날짜 문장열 (ex)"20240612")
 const dateString = year + month + day;
 
 // 입금 카테고리 배열
-const incomeCategory = ['월급', '용돈', '성과금', '환급금', '더치페이'];
+const incomeCategory = ["월급", "용돈", "성과금", "환급금", "더치페이"];
 
 // 출금 카테고리 배열
 const expenseCategory = [
-  '식비',
-  '교통비',
-  '공과금',
-  '유흥',
-  '문화',
-  '생활',
-  '저축',
-  '투자',
+  "식비",
+  "교통비",
+  "공과금",
+  "유흥",
+  "문화",
+  "생활",
+  "저축",
+  "투자",
 ];
 
 // 결제 방법 배열
-const purchaseMethod = ['현금', '신용카드', '체크카드', '계좌이체'];
+const purchaseMethod = ["현금", "신용카드", "체크카드", "계좌이체"];
 
-export const useHistoryListStore = defineStore('historyList', () => {
+export const useHistoryListStore = defineStore("historyList", () => {
   /* 반응형 상태 */
   // 상태 저장 배열
   const state = reactive({
@@ -48,10 +48,11 @@ export const useHistoryListStore = defineStore('historyList', () => {
   const fetchMemberList = async () => {
     try {
       const res = await axios.get(BASEURI_MEMBERS);
+
       if (res.status === 200) {
         state.memberList = res.data;
       } else {
-        alert('데이터 조회 실패');
+        alert("데이터 조회 실패");
       }
     } catch (e) {
       alert(e);
@@ -65,7 +66,7 @@ export const useHistoryListStore = defineStore('historyList', () => {
       if (res.status === 200) {
         state.historyList = res.data;
       } else {
-        alert('데이터 조회 실패');
+        alert("데이터 조회 실패");
       }
     } catch (e) {
       alert(e);
@@ -79,7 +80,7 @@ export const useHistoryListStore = defineStore('historyList', () => {
       if (res.status === 200) {
         state.periodicExpenseList = res.data;
       } else {
-        alert('데이터 조회 실패');
+        alert("데이터 조회 실패");
       }
     } catch (e) {
       alert(e);
@@ -94,6 +95,8 @@ export const useHistoryListStore = defineStore('historyList', () => {
   /* 계산된 속성 */
   // 회원 정보 가져오기
   const memberList = computed(() => state.memberList);
+
+  // 회원 잔액 가져오기
 
   // 입출금 내역 가져오기
   const historyList = computed(() => state.historyList);
@@ -169,11 +172,56 @@ export const useHistoryListStore = defineStore('historyList', () => {
 
     return order;
   });
+  // 선택 월 내역 가져오기
+  const getMonthList = (mon) => {
+    return computed(() => {
+      const totalbudget = [
+        ...state.historyList.filter((list) => list.date.slice(0, 6) == mon),
+        ...state.periodicExpenseList.filter(
+          (list) => list.date.slice(0, 6) == mon
+        ),
+      ];
+      return totalbudget;
+    });
+  };
 
   // 월 수입 합계 가져오기(재유님)
+  const totalMonthIncome = (mon) => {
+    return computed(() => {
+      const totalIncome = [
+        ...state.historyList.filter(
+          (list) => list.date.slice(0, 6) == mon && parseInt(list.amount) > 0
+        ),
+        ...state.periodicExpenseList.filter(
+          (list) => list.date.slice(0, 6) == mon && parseInt(list.amount) > 0
+        ),
+      ];
+      let sum = 0;
+      for (let amo of totalIncome) {
+        sum += parseInt(amo.amount);
+      }
+      return sum;
+    });
+  };
 
   // 월 지출 합계 가져오기(재유님)
-
+  const totalMonthOutcome = (mon) => {
+    return computed(() => {
+      const totalIncome = [
+        ...state.historyList.filter(
+          (list) => list.date.slice(0, 6) == mon && parseInt(list.amount) < 0
+        ),
+        ...state.periodicExpenseList.filter(
+          (list) => list.date.slice(0, 6) == mon && parseInt(list.amount) < 0
+        ),
+      ];
+      let sum = 0;
+      for (let amo of totalIncome) {
+        sum += parseInt(amo.amount);
+      }
+      return sum;
+    });
+  };
   //
 
   //
@@ -204,7 +252,7 @@ export const useHistoryListStore = defineStore('historyList', () => {
         successCallback();
       } else {
         console.log(res.status);
-        alert('내역 추가 실패');
+        alert("내역 추가 실패");
       }
     } catch (e) {
       alert(e);
@@ -227,5 +275,8 @@ export const useHistoryListStore = defineStore('historyList', () => {
     thisWeekHistory,
     expenseOrder,
     addHistoryList,
+    getMonthList,
+    totalMonthIncome,
+    totalMonthOutcome,
   };
 });

@@ -1,5 +1,5 @@
 <template lang="">
-  <Header />
+  <!-- <Header />
   <div class="container" style="top: 100px">
     <div>
       <!-- <span>수입: {{ budget.monthIncome }}</span>
