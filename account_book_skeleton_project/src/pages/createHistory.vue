@@ -106,7 +106,11 @@
           >
             추 가
           </button>
-          <button type="button" class="btn btn-secondary mx-4 my-3">
+          <button
+            type="button"
+            class="btn btn-secondary mx-4 my-3"
+            @click="router.push('#')"
+          >
             취 소
           </button>
         </div>

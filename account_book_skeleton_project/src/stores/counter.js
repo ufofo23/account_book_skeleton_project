@@ -228,6 +228,43 @@ export const useHistoryListStore = defineStore('historyList', () => {
   };
 
   // json server로 데이터 업데이트
+  const updateHistoryList = async (
+    beforeId,
+    { name, amount, date, category, purchaseMethod, isPeriodic, memo },
+    successCallback
+  ) => {
+    try {
+      const payload = {
+        id: today.getTime(),
+        name,
+        amount,
+        date,
+        category,
+        purchaseMethod,
+        isPeriodic,
+        memo,
+      };
+      let res;
+      if (payload.isPeriodic === 'false') {
+        res = await axios.put(BASEURI_budget + `/${beforeId}`, payload);
+      } else {
+        res = await axios.put(
+          BASEURI_periodicExpense + `/${beforeId}`,
+          payload
+        );
+      }
+
+      if (res.status === 200) {
+        state.historyList.push({ ...res.data });
+        successCallback();
+      } else {
+        console.log(res.status);
+        alert('내역 수정 실패');
+      }
+    } catch (e) {
+      alert(e);
+    }
+  };
 
   // json server로 데이터 삭제
 
@@ -242,7 +279,8 @@ export const useHistoryListStore = defineStore('historyList', () => {
     thisMonthHistory,
     thisWeekHistory,
     expenseOrder,
-    addHistoryList,
     getHistoryById,
+    addHistoryList,
+    updateHistoryList,
   };
 });

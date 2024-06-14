@@ -1,4 +1,3 @@
-<!--기존 데이터 받아올 수 있도록 수정-->
 <template>
   <div class="container" style="margin-top: 150px">
     <div class="row">
@@ -14,26 +13,67 @@
             type="text"
             class="form-control"
             id="name"
-            :placeholder="name"
+            :placeholder="findHistory[0]['name']"
+            v-model="history.name"
           />
         </div>
         <div class="form-group">
-          <label for="amount">금액</label>
+          <label for="amount" class="me-3 d-inline-block">금액</label>
+          <button
+            type="button"
+            class="btn btn-outline-warning btn-sm"
+            v-if="findHistory[0]['purchaseMethod'] === 'card'"
+            @click="() => (findHistory[0]['purchaseMethod'] = 'cash')"
+          >
+            카드
+          </button>
+          <button
+            type="button"
+            class="btn btn-warning btn-sm"
+            v-else
+            @click="() => (findHistory[0]['purchaseMethod'] = 'card')"
+          >
+            현금
+          </button>
           <input
             type="text"
             class="form-control"
             id="amount"
-            :placeholder="amount"
+            :placeholder="findHistory[0]['amount']"
+            v-model.number="history.amount"
           />
         </div>
         <div class="form-group">
           <label for="date" class="me-3 d-inline-block">날짜</label>
-          <button type="button" class="btn btn-outline-warning btn-sm">
-            <!--click이벤트 추가 필요-->
+          <button
+            type="button"
+            class="btn btn-outline-warning btn-sm"
+            v-if="history.isPeriodic === 'false'"
+            @click="() => (history.isPeriodic = 'true')"
+          >
             고정지출
           </button>
-          <input type="date" class="form-control" id="date" />
-          <!--v-model="date" 추가 필요-->
+          <button
+            type="button"
+            class="btn btn-warning btn-sm"
+            v-else
+            @click="() => (history.isPeriodic = 'false')"
+          >
+            고정지출
+          </button>
+          <input
+            type="date"
+            class="form-control"
+            id="date"
+            v-model="history.date"
+          />
+          <!-- :value="
+              findHistory[0]['date'].substring(0, 4) +
+              '-' +
+              findHistory[0]['date'].substring(4, 6) +
+              '-' +
+              findHistory[0]['date'].substring(6) -->
+          <!-- 초기값 넣기 -->
         </div>
         <div class="form-group">
           <label for="category">카테고리</label>
@@ -43,7 +83,6 @@
             id="category"
             style="width: 200px"
             v-model="history.category"
-            :value="hi"
           >
             <option
               v-if="parseInt(history.amount) >= 0"
@@ -57,10 +96,28 @@
             </option>
           </select>
         </div>
+        <div class="form-group">
+          <label for="memo">메모</label>
+          <textarea
+            class="form-control"
+            id="memo"
+            placeholder="메모를 입력하세요."
+            v-model="history.memo"
+          />
+        </div>
         <div class="form-group d-flex justify-content-center">
-          <!--click이벤트 추가 필요-->
-          <button type="button" class="btn btn-primary mx-4 my-3">추 가</button>
-          <button type="button" class="btn btn-secondary mx-4 my-3">
+          <button
+            type="button"
+            class="btn btn-primary mx-4 my-3"
+            @click="updateHistoryHandler"
+          >
+            수 정
+          </button>
+          <button
+            type="button"
+            class="btn btn-secondary mx-4 my-3"
+            @click="router.push('#')"
+          >
             취 소
           </button>
         </div>
@@ -70,7 +127,7 @@
 </template>
 <script setup>
 import { useHistoryListStore } from '@/stores/counter';
-import { reactive } from 'vue';
+import { reactive, onBeforeMount, ref, computed } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 
 const router = useRouter();
@@ -100,25 +157,54 @@ const expenseCategory = [
   '기타',
 ];
 
+// 변경 전 id params로 받아오기
+const beforeId = currentRoute.params.id;
+
 // store에서 가져오기(객체)
 const historyListStore = useHistoryListStore();
 
 // 분할할당으로 변수 넘겨주기
-const { getHistoryById } = historyListStore;
+const { getHistoryById, updateHistoryList } = historyListStore;
 
 // id 값으로 편집할 History 가져오기
-const findHistory = getHistoryById(currentRoute.params.id);
+const findHistory = getHistoryById(beforeId);
+console.log('findHistory  : ', findHistory);
+console.log('findHistory.value : ', findHistory.value);
 
+// 전달할 데이터
 const history = reactive({
-  id: findHistory[0].id,
-  name: findHistory[0].name,
-  amount: findHistory[0].amount,
-  date: findHistory[0].date,
-  category: findHistory[0].catogory,
-  purchaseMethod: findHistory[0].purchaseMethod,
-  isPeriodic: findHistory[0].isPeriodic,
-  memo: findHistory[0].memo,
+  name: '',
+  amount: 0,
+  date: '',
+  category: '카테고리를 선택하세요',
+  purchaseMethod: 'card',
+  isPeriodic: 'false',
+  memo: '',
 });
+
+// updateHistoryHandler 다음에 처리할 로직과 함께 정의
+const updateHistoryHandler = () => {
+  let { name, amount, date, category, purchaseMethod, isPeriodic, memo } =
+    history;
+
+  if (
+    !name ||
+    name.trim() === '' ||
+    !amount ||
+    amount === 0 ||
+    !date ||
+    date.trim() === '' ||
+    category === '카테고리를 선택하세요'
+  ) {
+    alert('내용을 입력해주세요.');
+    return;
+  }
+
+  history.date = history.date.replace(/-/g, '');
+  updateHistoryList(beforeId, { ...history }, () => {
+    router.push('/');
+  });
+};
 </script>
 <style>
 .form-group {

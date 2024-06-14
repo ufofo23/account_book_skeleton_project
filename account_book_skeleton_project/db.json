@@ -31,13 +31,13 @@
     },
     {
       "id": "3",
-      "name": "월간 내역 테스트",
-      "amount": 100000,
-      "date": "20240610",
+      "name": "내역 변경 테스트",
+      "amount": 2000,
+      "date": "20240613",
       "category": "월급",
-      "purchaseMethod": "현금",
+      "purchaseMethod": "card",
       "isPeriodic": "false",
-      "memo": "월간 내역 테스트 용 샘플입니다."
+      "memo": ""
     },
     {
       "id": "4",
@@ -80,7 +80,7 @@
       "memo": "memo1\nmemo2"
     },
     {
-      "id": 1718256799150,
+      "id": "1718256799150",
       "name": "zero test",
       "amount": 10,
       "date": "20240613",
