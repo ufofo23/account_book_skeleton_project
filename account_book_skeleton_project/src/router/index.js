@@ -17,7 +17,7 @@ const router = createRouter({
       component: HistoryList,
     },
     { path: '/history/add', name: 'CreateHistory', component: CreateHistory },
-    { path: '/history/edit/:id', name: 'EditHistory', component: EditHistory },
+    { path: '/history/edit/:id', name: 'CditHistory', component: EditHistory },
   ],
 });
 

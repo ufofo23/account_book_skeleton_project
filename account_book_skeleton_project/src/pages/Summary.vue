@@ -1,8 +1,7 @@
 <template lang="">
-  <Header />
   <div class="container" style="top: 100px">
     <div>
-      <!-- <span>수입: {{ budget.monthIncome }}</span>
+      <span>수입: {{ budget.monthIncome }}</span>
       <span>지출: {{ budget.monthExpense }}</span>
       <span>순수익: {{ budget.netIncome }}</span> -->
     </div>
@@ -82,9 +81,8 @@ onMounted(() => {
     },
   });
 });
-</script>
-<style scoped>
-.chart-wrapper {
+<style>
+{/* .chart-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -100,5 +98,5 @@ canvas {
   border: 1px solid black;
   width: 330px;
   height: 330px;
-}
+} */}
 </style>
